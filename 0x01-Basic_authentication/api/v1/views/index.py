@@ -30,3 +30,12 @@ def stats() -> str:
 def raise_401():
     ''' Raises a 401 error '''
     abort(401)
+
+
+@app_views.route('/forbidden', strict_slashes=False)
+def raise_403():
+    '''GET /api/v1/forbidden
+    Raise:
+      - 403 forbidden error
+    '''
+    abort(403)
