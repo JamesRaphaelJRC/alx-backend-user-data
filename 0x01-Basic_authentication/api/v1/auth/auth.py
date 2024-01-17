@@ -33,7 +33,7 @@ class Auth:
             return False
         return True
 
-    def authorization_header(self, request=None) -> str:
+    def authorization_header(self, request: request=None) -> str:
         ''' Verifies if the request object contains the authorization header
         args:
             request - A flask request object.
