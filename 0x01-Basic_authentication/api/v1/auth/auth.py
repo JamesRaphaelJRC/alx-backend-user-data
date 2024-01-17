@@ -41,7 +41,7 @@ class Auth:
             Value of the request header 'Authorization' if
             'Authorization' is in the request object and None otherwise
         '''
-        if request is None:
+        if request is None or 'Authorization':
             return None
         return request.headers('Authorization', None)
 
