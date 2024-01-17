@@ -18,11 +18,14 @@ AUTH_TYPE = getenv("AUTH_TYPE")
 if AUTH_TYPE == 'auth':
     from api.v1.auth.auth import Auth
     auth = Auth()
+elif AUTH_TYPE == 'BasicAuth':
+    from api.v1.auth.basic_auth import BasicAuth
+    auth = BasicAuth()
 
 
 @app.before_request
 def before_request() -> str:
-    ''' Handles basic authentication
+    ''' Handles before request
     '''
     if auth is not None:
         excluded_paths = ['/api/v1/status/',
