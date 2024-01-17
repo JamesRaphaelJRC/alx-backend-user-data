@@ -34,9 +34,16 @@ class Auth:
         return True
 
     def authorization_header(self, request=None) -> str:
-        ''' returns None
+        ''' Verifies if the request object contains the authorization header
+        args:
+            request - A flask request object.
+        Return:
+            Value of the request header 'Authorization' if
+            'Authorization' is in the request object and None otherwise
         '''
-        return None
+        if request is None or 'Authorization':
+            return None
+        return request.headers('Authorization', None)
 
     def current_user(self, request=None) -> TypeVar('User'):
         ''' Returns None
