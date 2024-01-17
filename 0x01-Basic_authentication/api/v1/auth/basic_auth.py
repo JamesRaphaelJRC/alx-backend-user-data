@@ -58,13 +58,15 @@ class BasicAuth(Auth):
             return None
         from models.user import User
 
+        # Loads all user to the DATA global variable
         User.load_from_file()
+
         from models.base import DATA
         if len(DATA) == 0:
             return None
         users = DATA.get('User')
 
-        # Check if a User instance with email == user_email exists
+        # Gets User instance with email == user_email exists and valid pwd
         user_instance = [user for user in users.values() if user.search(
             {'email': user_email}) != [] and user.is_valid_password(user_pwd)]
 
@@ -73,3 +75,27 @@ class BasicAuth(Auth):
             return None
         else:
             return user_instance[0]
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        ''' Overloads Auth and retrieves the User instance for a request
+        '''
+        auth_header = self.authorization_header(request)
+
+        encoded = self.extract_base64_authorization_header(auth_header)
+
+        if not encoded:
+            return None
+
+        decoded = self.decode_base64_authorization_header(encoded)
+
+        if not decoded:
+            return None
+
+        email, pwd = self.extract_user_credentials(decoded)
+
+        if not email or not pwd:
+            return None
+
+        user = self.user_object_from_credentials(email, pwd)
+
+        return user
