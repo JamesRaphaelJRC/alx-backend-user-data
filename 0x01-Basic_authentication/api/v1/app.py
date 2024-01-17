@@ -21,7 +21,7 @@ if AUTH_TYPE == 'auth':
 
 
 @app.before_request
-def authenticate():
+def before_request() -> str:
     ''' Handles basic authentication
     '''
     if auth is not None:
