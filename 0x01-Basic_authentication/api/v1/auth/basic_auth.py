@@ -45,14 +45,8 @@ class BasicAuth(Auth):
                 type(decoded_base64_authorization_header) != str or\
                 ':' not in decoded_base64_authorization_header:
             return None, None
-        credentials = decoded_base64_authorization_header.split(':')
-        email = credentials[0]
-        password = ""
-        for pwd in credentials[1:]:
-            password += pwd + ':'
-        # Removes the first ':' that seperated the email from password
-        password = password[1:]
-
+        email, password = decoded_base64_authorization_header.split(
+            sep=':', maxsplit=1)  # maxsplit=1 allows for pwd containing ':'
         return email, password
 
     def user_object_from_credentials(
@@ -83,7 +77,7 @@ class BasicAuth(Auth):
         if len(user_instance) == 0:
             return None
         else:
-            return user_instance[0]
+            return user_instance
 
     def current_user(self, request=None) -> TypeVar('User'):
         ''' Overloads Auth and retrieves the User instance for a request
