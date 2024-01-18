@@ -38,12 +38,21 @@ class BasicAuth(Auth):
             self, decoded_base64_authorization_header: str) -> (str, str):
         ''' Returns the user email and password from the Base64
         decoded value
+        N/B: Password with ':' is allowed.
+        decoded_base64_authorization_header only contain "email:password"
         '''
         if decoded_base64_authorization_header is None or\
                 type(decoded_base64_authorization_header) != str or\
                 ':' not in decoded_base64_authorization_header:
             return None, None
-        email, password = decoded_base64_authorization_header.split(':')
+        credentials = decoded_base64_authorization_header.split(':')
+        email = credentials[0]
+        password = ""
+        for pwd in credentials[1:]:
+            password += pwd + ':'
+        # Removes the first ':' that seperated the email from password
+        password = password[1:]
+
         return email, password
 
     def user_object_from_credentials(
