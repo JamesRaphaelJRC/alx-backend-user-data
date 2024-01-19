@@ -30,9 +30,8 @@ def login_user():
 
     from api.v1.app import auth
 
-    # Create  a session
+    # Creates  a session
     session_id = auth.create_session(user.id)
-    auth.create_session(user.id)
 
     # Jsonify returns a response object
     resp = jsonify(user.to_json())
