@@ -77,7 +77,7 @@ class BasicAuth(Auth):
         if len(user_instance) == 0:
             return None
         else:
-            return user_instance
+            return user_instance[0]
 
     def current_user(self, request=None) -> TypeVar('User'):
         ''' Overloads Auth and retrieves the User instance for a request
