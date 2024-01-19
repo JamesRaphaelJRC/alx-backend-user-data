@@ -15,7 +15,14 @@ class SessionAuth(Auth):
         '''
         if user_id is None or type(user_id) != str:
             return None
-        s_id = str(uuid4())
-        self.user_id_by_session_id[s_id] = user_id
+        session_id = str(uuid4())
+        self.user_id_by_session_id[session_id] = user_id
 
-        return s_id
+        return session_id
+
+    def user_id_for_session_id(self, session_id: str = None) -> str:
+        ''' Return a User ID based on a Session ID
+        '''
+        if session_id is None and type(session_id) != str:
+            return None
+        return self.user_id_by_session_id.get(session_id)
