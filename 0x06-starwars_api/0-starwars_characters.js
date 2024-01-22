@@ -7,8 +7,8 @@ const request = require('request');
 
 request(movieURL, function (error, response, body) {
   if (error == null) {
-    const fbody = JSON.parse(body);
-    const characters = fbody.characters;
+    const body = JSON.parse(body);
+    const characters = body.characters;
 
     if (characters && characters.length > 0) {
       const limit = characters.length;
