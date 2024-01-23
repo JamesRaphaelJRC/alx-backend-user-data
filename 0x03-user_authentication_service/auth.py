@@ -18,11 +18,9 @@ class Auth:
         password = password.encode('utf-8')
         return bcrypt.hashpw(password, bcrypt.gensalt())
 
-    def register_user(self, email, password):
+    def register_user(self, email: str, password: str) -> User:
         ''' Registers a new user by saving the user to the database
         '''
-        if email is None or password is None:
-            return
         try:
             user = self._db.find_user_by(email=email)
             if user:
