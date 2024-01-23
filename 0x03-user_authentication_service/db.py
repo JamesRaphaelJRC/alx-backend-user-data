@@ -58,11 +58,10 @@ class DB:
     def update_user(self, user_id: int, **kwargs) -> None:
         ''' Updates a user with a given user_id using the key word arguments
         '''
-        try:
-            user = self.find_user_by(id=user_id)
-            for key, value in kwargs.items():
+        user = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            if hasattr(User, key):
                 setattr(user, key, value)
-                self._session.commit()
-        except KeyError or ValueError or InvalidRequestError\
-                or NoResultFound:
-            raise ValueError
+            else:
+                raise ValueError
+            self._session.commit()
