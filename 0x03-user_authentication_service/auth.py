@@ -21,6 +21,8 @@ class Auth:
     def register_user(self, email, password):
         ''' Registers a new user by saving the user to the database
         '''
+        if email is None or password is None:
+            return
         try:
             user = self._db.find_user_by(email=email)
             if user:
