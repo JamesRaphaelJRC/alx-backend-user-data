@@ -63,5 +63,6 @@ class DB:
             for key, value in kwargs.items():
                 setattr(user, key, value)
                 self._session.commit()
-        except KeyError or ValueError:
+        except KeyError or ValueError or InvalidRequestError\
+                or NoResultFound:
             raise ValueError
