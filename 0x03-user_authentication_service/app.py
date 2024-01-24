@@ -40,9 +40,6 @@ def login():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    if email is None or password is None:
-        abort(400)
-
     if not AUTH.valid_login(email, password):
         abort(401)
 
