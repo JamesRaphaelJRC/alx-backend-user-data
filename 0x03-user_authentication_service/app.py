@@ -23,6 +23,7 @@ def create_new_user():
     '''
     email = request.form.get('email')
     password = request.form.get('password')
+
     try:
         AUTH.register_user(email, password)
         return jsonify({"email": f"{email}", "message": "user created"})
