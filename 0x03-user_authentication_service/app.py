@@ -72,7 +72,7 @@ def logout() -> str:
 
 
 @app.route('/profile')
-def profile():
+def profile() -> str:
     ''' GET /profile
     Return:
         User credentials
